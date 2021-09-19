@@ -34,6 +34,7 @@
 #include <MIDI_Outputs/CCIncrementDecrementButtons.hpp>
 
 #include <MIDI_Outputs/CCPotentiometer.hpp>
+#include <MIDI_Outputs/NotePotentiometer.hpp>
 
 #include <MIDI_Outputs/NoteButton.hpp>
 #include <MIDI_Outputs/NoteButtonLatched.hpp>

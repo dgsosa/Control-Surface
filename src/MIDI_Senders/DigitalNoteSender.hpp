@@ -22,8 +22,19 @@ class DigitalNoteSender {
         Control_Surface.sendNoteOff(address, 0x7F);
     }
 
+    /// Send a note on message to the given address with value
+    /// as velocity. for used on faders
+    void send(uint8_t value, MIDIAddress address) {
+        Control_Surface.sendNoteOn(address, value);
+    }
+
+
     void setVelocity(uint8_t velocity) { this->velocity = velocity; }
     uint8_t getVelocity() const { return this->velocity; }
+
+    /// Get the resolution of the sender in bits (always returns 7).
+    constexpr static uint8_t precision() { return 7; }
+
 
   private:
     uint8_t velocity;
