@@ -25,7 +25,13 @@ class DigitalNoteSender {
     /// Send a note on message to the given address with value
     /// as velocity. for used on faders
     void send(uint8_t value, MIDIAddress address) {
+      if(value>0) {
         Control_Surface.sendNoteOn(address, value);
+      }
+      else
+      {
+        Control_Surface.sendNoteOff(address, 0);
+      }
     }
 
 
