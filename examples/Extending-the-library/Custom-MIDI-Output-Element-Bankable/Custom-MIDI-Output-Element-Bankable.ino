@@ -8,7 +8,7 @@
  * To understand this example, you need to understand the @ref Bank.ino and the
  * @ref Custom-MIDI-Output-Element.ino examples first.
  *
- * @boards  AVR, AVR USB, Due, Nano 33 IoT, Nano 33 BLE, Teensy 3.x, ESP32
+ * @boards  AVR, AVR USB, Due, Nano 33 IoT, Nano 33 BLE, UNO R4, Pi Pico, Teensy 3.x, ESP32
  * 
  * Connections
  * -----------
@@ -154,7 +154,7 @@ IncrementSelector<4> selector {
 MyNoteButton button {
   {bank, BankType::CHANGE_ADDRESS}, // bank changes the note number (address)
   5,                                // Push button on pin 5
-  {MIDI_Notes::C(2), CHANNEL_1},      // Base address: Note C2 on MIDI channel 1
+  {MIDI_Notes::C(2), Channel_1},      // Base address: Note C2 on MIDI channel 1
   0x7F,                             // Maximum velocity
 };
 

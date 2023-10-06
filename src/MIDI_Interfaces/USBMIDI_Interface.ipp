@@ -1,3 +1,4 @@
+#include <Def/TypeTraits.hpp>
 #include <MIDI_Parsers/LambdaPuller.hpp>
 
 BEGIN_CS_NAMESPACE
@@ -15,13 +16,15 @@ MIDIReadEvent GenericUSBMIDI_Interface<Backend>::read() {
 }
 
 template <class Backend>
-void GenericUSBMIDI_Interface<Backend>::update() {
-    MIDI_Interface::updateIncoming(this);
+void GenericUSBMIDI_Interface<Backend>::begin() {
+#ifndef __SAM3X8E__ // Due compiler too old, doesn't support begin_if_possible()
+    begin_if_possible(backend);
+#endif
 }
 
 template <class Backend>
-void GenericUSBMIDI_Interface<Backend>::handleStall() {
-    MIDI_Interface::handleStall(this);
+void GenericUSBMIDI_Interface<Backend>::update() {
+    MIDI_Interface::updateIncoming(this);
 }
 
 // Retrieving the received messages
@@ -54,7 +57,7 @@ SysExMessage GenericUSBMIDI_Interface<Backend>::getSysExMessage() const {
 template <class Backend>
 void GenericUSBMIDI_Interface<Backend>::sendChannelMessageImpl(
     ChannelMessage msg) {
-    sender.sendChannelMessage(msg, Sender{this});
+    sender.sendChannelMessage(msg, Sender {this});
     if (alwaysSendImmediately_)
         backend.sendNow();
 }
@@ -62,21 +65,21 @@ void GenericUSBMIDI_Interface<Backend>::sendChannelMessageImpl(
 template <class Backend>
 void GenericUSBMIDI_Interface<Backend>::sendSysCommonImpl(
     SysCommonMessage msg) {
-    sender.sendSysCommonMessage(msg, Sender{this});
+    sender.sendSysCommonMessage(msg, Sender {this});
     if (alwaysSendImmediately_)
         backend.sendNow();
 }
 
 template <class Backend>
 void GenericUSBMIDI_Interface<Backend>::sendSysExImpl(const SysExMessage msg) {
-    sender.sendSysEx(msg, Sender{this});
+    sender.sendSysEx(msg, Sender {this});
     if (alwaysSendImmediately_)
         backend.sendNow();
 }
 
 template <class Backend>
 void GenericUSBMIDI_Interface<Backend>::sendRealTimeImpl(RealTimeMessage msg) {
-    sender.sendRealTimeMessage(msg, Sender{this});
+    sender.sendRealTimeMessage(msg, Sender {this});
     if (alwaysSendImmediately_)
         backend.sendNow();
 }

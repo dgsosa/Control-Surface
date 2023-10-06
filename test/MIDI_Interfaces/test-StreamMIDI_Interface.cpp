@@ -15,12 +15,12 @@ using u8vec = std::vector<uint8_t>;
 TEST(StreamMIDI_Interface, send3B) {
     TestStream stream;
     StreamMIDI_Interface midi = stream;
-    midi.sendChannelMessage(MIDIMessageType::NOTE_ON, CHANNEL_4, 0x55, 0x66);
-    midi.sendNoteOn({0x55, CHANNEL_4}, 0x66);
-    midi.sendNoteOff({0x55, CHANNEL_4}, 0x66);
-    midi.sendControlChange({0x55, CHANNEL_4}, 0x66);
-    midi.sendKeyPressure({0x55, CHANNEL_4}, 0x66);
-    midi.sendPitchBend(CHANNEL_4, 0x3355);
+    midi.sendChannelMessage(MIDIMessageType::NOTE_ON, Channel_4, 0x55, 0x66);
+    midi.sendNoteOn({0x55, Channel_4}, 0x66);
+    midi.sendNoteOff({0x55, Channel_4}, 0x66);
+    midi.sendControlChange({0x55, Channel_4}, 0x66);
+    midi.sendKeyPressure({0x55, Channel_4}, 0x66);
+    midi.sendPitchBend(Channel_4, 0x3355);
     u8vec expected = {
         0x93, 0x55, 0x66, //
         0x93, 0x55, 0x66, //
@@ -35,10 +35,10 @@ TEST(StreamMIDI_Interface, send3B) {
 TEST(StreamMIDI_Interface, send2B) {
     TestStream stream;
     StreamMIDI_Interface midi = stream;
-    midi.sendChannelMessage(MIDIMessageType::PROGRAM_CHANGE, CHANNEL_4, 0x66);
-    midi.sendProgramChange({CHANNEL_4}, 0x66);
-    midi.sendProgramChange({0x66, CHANNEL_4});
-    midi.sendChannelPressure(CHANNEL_4, 0x66);
+    midi.sendChannelMessage(MIDIMessageType::PROGRAM_CHANGE, Channel_4, 0x66);
+    midi.sendProgramChange({Channel_4}, 0x66);
+    midi.sendProgramChange({0x66, Channel_4});
+    midi.sendChannelPressure(Channel_4, 0x66);
     u8vec expected = {
         0xC3, 0x66, //
         0xC3, 0x66, //
@@ -61,7 +61,7 @@ TEST(StreamMIDI_Interface, SysExSend8B) {
     StreamMIDI_Interface midi = stream;
     Sequence seq;
     u8vec sysex = {0xF0, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0xF7};
-    midi.send({sysex, CABLE_1});
+    midi.send({sysex, Cable_1});
     EXPECT_EQ(stream.sent, sysex);
 }
 
@@ -108,7 +108,7 @@ TEST(StreamMIDI_Interface, readSysEx) {
         0xF0, 0x55, 0x66, 0x77, 0x11, 0x22, 0x33, 0xF7,
     };
     EXPECT_EQ(result, expected);
-    EXPECT_EQ(sysex.cable, CABLE_1);
+    EXPECT_EQ(sysex.cable, Cable_1);
 }
 
 TEST(StreamMIDI_Interface, readNoteUpdate) {

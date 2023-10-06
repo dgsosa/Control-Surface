@@ -29,8 +29,8 @@ class PBAbsoluteEncoder : public MIDIAbsoluteEncoder<PitchBendSender<14>> {
      *          The internal pull-up resistors will be enabled by the Encoder
      *          library.
      * @param   address
-     *          The MIDI channel [CHANNEL_1, CHANNEL_16] and optional Cable
-     *          Number [CABLE_1, CABLE_16].
+     *          The MIDI channel [Channel_1, Channel_16] and optional Cable
+     *          Number [Cable_1, Cable_16].
      * @param   multiplier
      *          A constant factor to increase the speed of the rotary encoder.
      *          The position will just be multiplied by this factor. 
@@ -43,7 +43,7 @@ class PBAbsoluteEncoder : public MIDIAbsoluteEncoder<PitchBendSender<14>> {
      *          speed, increasing the number of pulsesPerStep will result in a 
      *          lower speed.
      */
-    PBAbsoluteEncoder(Encoder &&encoder, MIDIChannelCable address,
+    PBAbsoluteEncoder(AHEncoder &&encoder, MIDIChannelCable address,
                       int16_t multiplier = 1, uint8_t pulsesPerStep = 4)
         : MIDIAbsoluteEncoder<PitchBendSender<14>>(
               std::move(encoder), address, multiplier, pulsesPerStep, {}) {}

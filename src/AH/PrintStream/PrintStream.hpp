@@ -5,7 +5,7 @@
 #ifndef PrintStream_h
 #define PrintStream_h
 
-#include<AH/Settings/NamespaceSettings.hpp>
+#include <AH/Settings/NamespaceSettings.hpp>
 #include <AH/Settings/Warnings.hpp>
 AH_DIAGNOSTIC_WERROR() // Enable errors on warnings
 
@@ -73,8 +73,9 @@ Setbytesep setbytesep(char bytesep);
 Print &operator<<(Print &printer, Setbytesep f);
 
 struct HexDump {
-    HexDump(const uint8_t *data, size_t length)
-     : data(data), length(length) {}
+    HexDump(const uint8_t *data, size_t length) : data(data), length(length) {}
+    template <size_t N>
+    explicit HexDump(const uint8_t (&data)[N]) : HexDump {data, N} {}
     const uint8_t *data;
     size_t length;
 };
@@ -83,10 +84,14 @@ Print &operator<<(Print &p, HexDump h);
 
 /// @}
 
+END_AH_NAMESPACE
+
 #ifndef ARDUINO
 
 #include <iomanip>
 #include <iostream>
+
+BEGIN_AH_NAMESPACE
 
 // TODO: check conflicts between Arduino version and C++ STL version
 using std::endl;
@@ -115,9 +120,9 @@ inline std::ostream &operator<<(std::ostream &os,
 
 std::ostream &operator<<(std::ostream &p, HexDump h);
 
-#endif
-
 END_AH_NAMESPACE
+
+#endif
 
 AH_DIAGNOSTIC_POP()
 

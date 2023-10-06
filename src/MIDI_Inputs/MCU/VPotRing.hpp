@@ -112,8 +112,8 @@ struct VPotMatcher : public TwoByteMIDIMatcher {
      * @param   track
      *          The track of the VPot [1, 8].
      * @param   channelCN
-     *          The MIDI channel [CHANNEL_1, CHANNEL_16] and Cable Number 
-     *          [CABLE_1, CABLE_16].
+     *          The MIDI channel [Channel_1, Channel_16] and Cable Number 
+     *          [Cable_1, Cable_16].
      */
     VPotMatcher(uint8_t track, MIDIChannelCable channelCN)
         : TwoByteMIDIMatcher({track + 0x30 - 1, channelCN}) {}
@@ -134,8 +134,8 @@ struct BankableVPotMatcher : public BankableTwoByteMIDIMatcher<BankSize> {
      * @param   track
      *          The track of the VPot [1, 8].
      * @param   channelCN
-     *          The MIDI channel [CHANNEL_1, CHANNEL_16] and Cable Number 
-     *          [CABLE_1, CABLE_16].
+     *          The MIDI channel [Channel_1, Channel_16] and Cable Number 
+     *          [Cable_1, Cable_16].
      */
     BankableVPotMatcher(BankConfig<BankSize> config, uint8_t track,
                         MIDIChannelCable channelCN)
@@ -166,10 +166,10 @@ class VPotRing
      * @param   track
      *          The track of the VPot [1, 8].
      * @param   channelCN
-     *          The MIDI channel [CHANNEL_1, CHANNEL_16] and Cable Number 
-     *          [CABLE_1, CABLE_16].
+     *          The MIDI channel [Channel_1, Channel_16] and Cable Number 
+     *          [Cable_1, Cable_16].
      */
-    VPotRing(uint8_t track, MIDIChannelCable channelCN = CHANNEL_1)
+    VPotRing(uint8_t track, MIDIChannelCable channelCN = Channel_1)
         : Parent({track, channelCN}) {}
 
   protected:
@@ -252,11 +252,11 @@ class VPotRing
      * @param   track
      *          The track of the VPot [1, 8].
      * @param   channelCN
-     *          The MIDI channel [CHANNEL_1, CHANNEL_16] and Cable Number 
-     *          [CABLE_1, CABLE_16].
+     *          The MIDI channel [Channel_1, Channel_16] and Cable Number 
+     *          [Cable_1, Cable_16].
      */
     VPotRing(BankConfig<BankSize> config, uint8_t track,
-             MIDIChannelCable channelCN = CHANNEL_1)
+             MIDIChannelCable channelCN = Channel_1)
         : Parent({config, track, channelCN}) {}
 
   protected:

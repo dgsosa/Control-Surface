@@ -39,8 +39,8 @@ class PCButton : public Bankable::MIDIButton<ManyAddresses<NumBanks>,
      *          The internal pull-up resistor will be enabled.
      * @param   addresses
      *          The list of MIDI addresses containing the program number 
-     *          [0, 127], channel [CHANNEL_1, CHANNEL_16], and optional cable 
-     *          number [CABLE_1, CABLE_16].
+     *          [0, 127], channel [Channel_1, Channel_16], and optional cable 
+     *          number [Cable_1, Cable_16].
      */
     PCButton(const Bank<NumBanks> &bank, pin_t pin,
              const Array<MIDIAddress, NumBanks> &addresses)

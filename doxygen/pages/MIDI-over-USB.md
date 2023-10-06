@@ -2,13 +2,20 @@
 There are some differences in MIDI over USB implementation between different types of Arduino-compatible boards. This page provides an overview and some board recommendations if you're planning to build an Arduino MIDI device with MIDI over USB support.
  
 ## Arduino boards with native USB support
-_Arduino Due, Arduino Leonardo, Arduino Micro, Arduino Nano 33 BLE, Arduino Nano 33 IOT, Arduino Zero, Arduino MKR Zero, Arduino MKR1000 ..._  
+_Arduino Due, Arduino Leonardo, Arduino Micro, Arduino Nano 33 IOT, Arduino Zero, Arduino MKR Zero, Arduino MKR1000 ..._  
 ***
 Some of the newer boards have native USB support (i.e. the USB connection goes directly to the main MCU) this means that they can act as a true USB MIDI device. This is based on PluggableUSB, using the [MIDIUSB](https://github.com/arduino-libraries/MIDIUSB) library.  
 You just have to @ref md_pages_Installation "install the MIDIUSB library", and upload a Control Surface sketch with a @ref USBMIDI_Interface.  
 The computer will then automatically detect the Arduino as a MIDI device.
 
 The MIDIUSB library only supports one MIDI USB virtual cable, while most Teensies support all 16 cables (see below).
+
+## Mbed OS boards with native USB support
+_Arduino Nano 33 BLE, Raspberry Pi Pico_
+***
+While these boards are not supported by the Arduino MIDIUSB library, they still support MIDI over USB through Control Surface's custom `PluggableUSBMIDI` implementation, which is built on top of [arduino/ArduinoCore-mbed](https://github.com/arduino/ArduinoCore-mbed)'s `PluggableUSB` system.
+
+You can also use the [earlephilhower/arduino-pico](https://github.com/earlephilhower/arduino-pico) core instead of the official one from Arduino, in which case you have to enable the Adafruit TinyUSB library in the `Tools > USB Stack` menu.
 
 ## Teensy
 _Teensy 2.0, Teensy++ 2.0, Teensy LC, Teensy 3.0, Teensy 3.1, Teensy 3.2, Teensy 3.5, Teensy 3.6, Teensy 4.0, Teensy 4.1_  
@@ -77,6 +84,10 @@ Control Surface supports AppleMIDI if you install the AppleMIDI library. See the
 OSC is not directly supported by the Control Surface library, but they can be integrated relatively easily.
 
 The ESP32 also has Bluetooth support, so you can use MIDI over BLE. This is supported by the Control Surface library using the @ref BluetoothMIDI_Interface.
+
+## Custom USB MIDI backends
+
+Control Surface allows you to easily define your own USB MIDI backends for boards that are not supported out of the box or for other hardware such as USB host shields. You can find an example in @ref Custom-USB-MIDI-Backend.ino.
 
 ***
 

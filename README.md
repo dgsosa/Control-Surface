@@ -1,15 +1,23 @@
-[![Build Status](https://github.com/tttapa/Control-Surface/workflows/CI%20Tests/badge.svg?branch=master)](https://github.com/tttapa/Control-Surface/actions?query=workflow%3A"CI+Tests")
-[![Test Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/tttapa/Control-Surface-doc/master/docs/Coverage/shield.io.coverage.json)](https://tttapa.github.io/Control-Surface-doc/Coverage/index.html)
-[![Examples](https://github.com/tttapa/Control-Surface/workflows/Examples/badge.svg?branch=master)](https://github.com/tttapa/Control-Surface/actions?query=workflow%3AExamples)
+[![Build Status](https://github.com/tttapa/Control-Surface/workflows/CI%20Tests/badge.svg?branch=main)](https://github.com/tttapa/Control-Surface/actions?query=workflow%3A"CI+Tests")
+[![Test Coverage](https://img.shields.io/endpoint?url=https://tttapa.github.io/Control-Surface-doc/Coverage/shield.io.coverage.json)](https://tttapa.github.io/Control-Surface-doc/Coverage/index.html)
+[![Examples](https://github.com/tttapa/Control-Surface/workflows/Examples/badge.svg?branch=main)](https://github.com/tttapa/Control-Surface/actions?query=workflow%3AExamples)
 [![GitHub](https://img.shields.io/github/stars/tttapa/Control-Surface?label=GitHub&logo=github)](https://github.com/tttapa/Control-Surface)
+[![Documentation](https://img.shields.io/badge/Documentation-main-blue)](https://tttapa.github.io/Control-Surface-doc/Doxygen)
 
 # Control Surface
 
-An Arduino library for MIDI controllers and control surfaces. 
-It includes a general-purpose MIDI abstraction layer as well, which can be useful
-for any MIDI-related project.  
-Control surfaces with both MIDI outputs (potentiometers, buttons, etc.) and
-MIDI inputs (LEDs, displays, etc.) are supported.
+Control Surface is an Arduino library for building MIDI controllers and control
+surfaces.
+At its core is a
+[general-purpose MIDI abstraction layer](https://tttapa.github.io/Control-Surface-doc/Doxygen/d3/df7/midi-tutorial.html)
+with support for serial MIDI, MIDI over USB, MIDI over BLE, etc., which can be
+useful for any MIDI-related project.  
+Besides MIDI input/output, Control Surface also includes easy-to-use utilities
+specifically for building MIDI controllers, supporting controls that send MIDI
+─ like potentiometers, push buttons, rotary encoders, etc. ─
+and controls that react to incoming MIDI ─ LEDs, displays, and so on.
+They can also be combined into controls that use both MIDI input and output, 
+such as motorized faders.
 
 > Table of contents  
 > <span class="mono">¶</span>&emsp;[Overview](#overview)  
@@ -72,6 +80,12 @@ A large portion of the **Mackie Control Universal** (MCU) protocol is
 implemented.
 
 <sub>→ [_MIDI Input Elements documentation_](https://tttapa.github.io/Control-Surface-doc/Doxygen/df/d8b/group__MIDIInputElements.html)</sub>
+
+### Motorized faders
+
+- **Motorized faders** are supported through the [tttapa/Control-Surface-Motor-Fader](https://github.com/tttapa/Control-Surface-Motor-Fader) repository.
+
+<sub>→ [_Control Surface Motor Fader documentation_](https://tttapa.github.io/Pages/Arduino/Control-Theory/Motor-Fader/)</sub>
 
 ### Bank support
 
@@ -146,14 +160,14 @@ CD74HC4051 mux {
 // Create an array of CCPotentiometer objects that send out MIDI Control Change 
 // messages when you turn the potentiometers connected to the 8 inputs of the mux.
 CCPotentiometer volumePotentiometers[] {
-  { mux.pin(0), { MIDI_CC::Channel_Volume, CHANNEL_1 } },
-  { mux.pin(1), { MIDI_CC::Channel_Volume, CHANNEL_2 } },
-  { mux.pin(2), { MIDI_CC::Channel_Volume, CHANNEL_3 } },
-  { mux.pin(3), { MIDI_CC::Channel_Volume, CHANNEL_4 } },
-  { mux.pin(4), { MIDI_CC::Channel_Volume, CHANNEL_5 } },
-  { mux.pin(5), { MIDI_CC::Channel_Volume, CHANNEL_6 } },
-  { mux.pin(6), { MIDI_CC::Channel_Volume, CHANNEL_7 } },
-  { mux.pin(7), { MIDI_CC::Channel_Volume, CHANNEL_8 } },
+  { mux.pin(0), { MIDI_CC::Channel_Volume, Channel_1 } },
+  { mux.pin(1), { MIDI_CC::Channel_Volume, Channel_2 } },
+  { mux.pin(2), { MIDI_CC::Channel_Volume, Channel_3 } },
+  { mux.pin(3), { MIDI_CC::Channel_Volume, Channel_4 } },
+  { mux.pin(4), { MIDI_CC::Channel_Volume, Channel_5 } },
+  { mux.pin(5), { MIDI_CC::Channel_Volume, Channel_6 } },
+  { mux.pin(6), { MIDI_CC::Channel_Volume, Channel_7 } },
+  { mux.pin(7), { MIDI_CC::Channel_Volume, Channel_8 } },
 };
  
 void setup() {
@@ -214,7 +228,6 @@ page.
 
 ## Work in progress
 
-- Adding support for motorized faders
 - Adding more tests (currently at over 560 unit tests)
 - Adding more examples and adding comments to existing examples
 - Finishing the documentation
@@ -227,14 +240,19 @@ For each commit, the continuous integration tests compile the examples for the
 following boards:
 
 - Arduino UNO
+- Arduino Mega
 - Arduino Leonardo
 - Teensy 3.2
+- Teensy 4.1
 - Arduino Due
 - Arduino Nano Every
 - Arduino Nano 33 IoT
 - Arduino Nano 33 BLE
+- Arduino Nano Every
+- Arduino UNO R4 Minima
 - ESP8266
 - ESP32
+- Raspberry Pi Pico
 
 This covers a very large part of the Arduino platform, and similar boards will
 also work. For example, the Arduino Nano, Mega, Micro, Pro Micro, Teensy 2.0,
@@ -267,6 +285,15 @@ tests and generating documentation, a style guide, etc.
 
 ### 2.x
 
+- ([aaf6eea](https://github.com/tttapa/Control-Surface/commit/aaf6eea2206c6e3b6a2004e0520100342945983f))  
+   The upper case `CHANNEL_x` and `CABLE_x` constants have been deprecated in
+   favor of the title case versions `Channel_x` and `Cable_x`. This was done to
+   avoid conflicts with macros defined by the ArduinoCore-renesas.  
+   For the same reason, the `CS` namespace has been renamed to `cs`.
+- ([47b2d5e](https://github.com/tttapa/Control-Surface/commit/47b2d5e7530da4c940fc99e606cfad0c6a0638a2))  
+   The `Encoder` class has been replaced by [`AHEncoder`](https://tttapa.github.io/Control-Surface-doc/Doxygen/dd/da9/classAHEncoder.html).
+   The code has been cleaned up and support was added for newer boards like the
+   Raspberry Pi Pico.
 - ([c35f29c](https://github.com/tttapa/Control-Surface/commit/c35f29ced7f3e491467bd61c1c71013099c01091))  
    The SoftwareSerial MIDI interfaces are now in separate header files that have
    to be included explicitly if you want to use them. The headers in question 

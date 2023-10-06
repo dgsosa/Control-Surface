@@ -43,7 +43,7 @@ class PBAbsoluteEncoder
      *          The internal pull-up resistors will be enabled by the Encoder
      *          library.
      * @param   addresses
-     *          The list of MIDI channels [CHANNEL_1, CHANNEL_16] and optional 
+     *          The list of MIDI channels [Channel_1, Channel_16] and optional 
      *          cable numbers [0, 15].
      * @param   speedMultiply
      *          A constant factor to increase the speed of the rotary encoder.
@@ -58,7 +58,7 @@ class PBAbsoluteEncoder
      *          speed, increasing the number of pulsesPerStep will result in a 
      *          lower speed.
      */
-    PBAbsoluteEncoder(const Bank<NumBanks> &bank, Encoder &&encoder,
+    PBAbsoluteEncoder(const Bank<NumBanks> &bank, AHEncoder &&encoder,
                       const Array<MIDIChannelCable, NumBanks> &addresses,
                       int16_t speedMultiply = 1, uint8_t pulsesPerStep = 4)
         : MIDIAbsoluteEncoder<NumBanks, ManyAddresses<NumBanks>,

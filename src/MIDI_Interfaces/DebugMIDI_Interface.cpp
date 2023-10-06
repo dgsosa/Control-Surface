@@ -45,10 +45,6 @@ void StreamDebugMIDI_Interface::update() {
     MIDI_Interface::updateIncoming(this);
 }
 
-void StreamDebugMIDI_Interface::handleStall() {
-    MIDI_Interface::handleStall(this);
-}
-
 void StreamDebugMIDI_Base::sendChannelMessageImpl(Stream &stream,
                                                   ChannelMessage msg) {
     uint8_t messageType = (msg.header >> 4) - 8;
@@ -69,7 +65,7 @@ void StreamDebugMIDI_Base::sendChannelMessageImpl(Stream &stream,
                << F("\tData 1: 0x") << hex << msg.getData1() << dec;
     if (msg.getMessageType() == msg.PITCH_BEND)
         stream << " (" << msg.getData14bit() << ')';
-    if (msg.getCable() != CABLE_1)
+    if (msg.getCable() != Cable_1)
         stream << F("\tCable: ") << msg.getCable().getOneBased();
     stream << "\r\n";
 }
@@ -81,7 +77,7 @@ void StreamDebugMIDI_Base::sendSysExImpl(Stream &stream, SysExMessage msg) {
     stream << F("System Exclusive [") << msg.length
            << (msg.isLastChunk() ? "]\t" : "+]\t")
            << AH::HexDump(msg.data, msg.length);
-    if (msg.getCable() != CABLE_1)
+    if (msg.getCable() != Cable_1)
         stream << F("\tCable: ") << msg.getCable().getOneBased();
     stream << "\r\n";
 }
@@ -99,7 +95,7 @@ void StreamDebugMIDI_Base::sendSysCommonImpl(Stream &stream,
                << msg.getData14bit() << ')';
     else
         stream << dec;
-    if (msg.getCable() != CABLE_1)
+    if (msg.getCable() != Cable_1)
         stream << F("\tCable: ") << msg.getCable().getOneBased();
     stream << "\r\n";
 }
@@ -110,7 +106,7 @@ void StreamDebugMIDI_Base::sendRealTimeImpl(Stream &stream,
     if (prefix != nullptr)
         stream << prefix << ' ';
     stream << F("Real-Time        ") << msg.getMessageType();
-    if (msg.getCable() != CABLE_1)
+    if (msg.getCable() != Cable_1)
         stream << F("\tCable: ") << msg.getCable().getOneBased();
     stream << "\r\n";
 }

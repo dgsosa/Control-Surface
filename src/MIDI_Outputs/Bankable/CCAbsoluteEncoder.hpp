@@ -40,7 +40,7 @@ class CCAbsoluteEncoder
      *          library.
      * @param   address
      *          The MIDI address containing the controller number [0, 119], 
-     *          channel [CHANNEL_1, CHANNEL_16], and optional cable number 
+     *          channel [Channel_1, Channel_16], and optional cable number 
      *          [0, 15].
      * @param   speedMultiply
      *          A constant factor to increase the speed of the rotary encoder.
@@ -55,7 +55,7 @@ class CCAbsoluteEncoder
      *          speed, increasing the number of pulsesPerStep will result in a 
      *          lower speed.
      */
-    CCAbsoluteEncoder(BankConfig<NumBanks> config, Encoder &&encoder,
+    CCAbsoluteEncoder(BankConfig<NumBanks> config, AHEncoder &&encoder,
                       MIDIAddress address, int16_t speedMultiply = 1,
                       uint8_t pulsesPerStep = 4)
         : MIDIAbsoluteEncoder<NumBanks, SingleAddress, ContinuousCCSender>(

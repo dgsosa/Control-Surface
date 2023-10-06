@@ -10,7 +10,7 @@
  * value when turned all the way to the right, tweak the `maximumValue` 
  * constant.
  * 
- * @boards  AVR, AVR USB, Nano Every, Due, Nano 33 IoT, Nano 33 BLE, ESP32, Teensy 3.x
+ * @boards  AVR, AVR USB, Nano Every, Due, Nano 33 IoT, Nano 33 BLE, UNO R4, Pi Pico, ESP32, Teensy 3.x
  * 
  * Connections
  * -----------
@@ -53,7 +53,7 @@ USBMIDI_Interface midi;
 // on pin A0, that sends MIDI messages with controller 7 (channel volume)
 // on channel 1.
 CCPotentiometer potentiometer {
-  A0, {MIDI_CC::Channel_Volume, CHANNEL_1}
+  A0, {MIDI_CC::Channel_Volume, Channel_1}
 };
 
 // The filtered value read when potentiometer is at the 0% position

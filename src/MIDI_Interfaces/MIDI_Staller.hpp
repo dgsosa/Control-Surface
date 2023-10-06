@@ -1,5 +1,8 @@
 #pragma once
 
+#include <Settings/SettingsWrapper.hpp>
+#if !DISABLE_PIPES
+
 #include <AH/Settings/Warnings.hpp>
 #include <Settings/NamespaceSettings.hpp>
 #include <AH/STL/utility> // std::forward
@@ -22,8 +25,8 @@ struct MIDIStaller {
     static const char *getNameNull(MIDIStaller *s);
 };
 
-/// Allocate a MIDIStaller executes the given callback and deletes itself when 
-/// @ref MIDIStaller::handleStall is called.
+/// Allocate a MIDIStaller that executes the given callback and deletes itself
+/// when @ref MIDIStaller::handleStall is called.
 /// @note   Don't lose the pointer! If you never call `handleStall`, the memory
 ///         won't be deallocated.
 template <class Callback>
@@ -46,3 +49,13 @@ auto makeMIDIStaller(Callback &&callback) -> MIDIStaller * {
 END_CS_NAMESPACE
 
 AH_DIAGNOSTIC_POP()
+
+#else
+
+BEGIN_CS_NAMESPACE
+
+struct MIDIStaller {};
+
+END_CS_NAMESPACE
+
+#endif

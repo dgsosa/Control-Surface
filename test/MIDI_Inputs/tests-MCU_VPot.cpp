@@ -3,12 +3,12 @@
 #include <gtest/gtest.h>
 
 using namespace ::testing;
-using namespace CS;
+using namespace cs;
 
 // -------------------------------------------------------------------------- //
 
 TEST(MCUVPot, update) {
-    constexpr Channel channel = CHANNEL_3;
+    constexpr Channel channel = Channel_3;
     constexpr uint8_t track = 5;
     MCU::VPotRing vpot = {track, channel};
 
@@ -39,7 +39,7 @@ TEST(MCUVPot, update) {
 
 TEST(MCUVPotBankable, setValueBankChangeAddress) {
     Bank<2> bank(4);
-    constexpr Channel channel = CHANNEL_3;
+    constexpr Channel channel = Channel_3;
     constexpr uint8_t track = 5;
     MCU::Bankable::VPotRing<2> vpot = {bank, track, channel};
 
@@ -61,7 +61,7 @@ TEST(MCUVPotBankable, setValueBankChangeAddress) {
 
 TEST(MCUVPotBankable, setValueBankChangeChannel) {
     Bank<2> bank(4);
-    constexpr Channel channel = CHANNEL_3;
+    constexpr Channel channel = Channel_3;
     constexpr uint8_t track = 5;
     MCU::Bankable::VPotRing<2> vpot = {{bank, CHANGE_CHANNEL}, track, channel};
 
@@ -83,12 +83,12 @@ TEST(MCUVPotBankable, setValueBankChangeChannel) {
 
 TEST(MCUVPotBankable, setValueBankChangeCN) {
     Bank<2> bank(4);
-    constexpr Channel channel = CHANNEL_3;
+    constexpr Channel channel = Channel_3;
     constexpr uint8_t track = 5;
     MCU::Bankable::VPotRing<2> vpot = {{bank, CHANGE_CABLENB}, track, channel};
 
     ChannelMessage midimsg = {
-        MIDIMessageType::CONTROL_CHANGE, channel, 0x34, 0x5A, CABLE_5,
+        MIDIMessageType::CONTROL_CHANGE, channel, 0x34, 0x5A, Cable_5,
     };
     MIDIInputElementCC::updateAllWith(midimsg);
     EXPECT_EQ(vpot.getPosition(), 0x0);
@@ -106,7 +106,7 @@ TEST(MCUVPotBankable, setValueBankChangeCN) {
 
 TEST(MCUVPotLEDsBankable, displayOnBankChange) {
     Bank<2> bank(4);
-    constexpr Channel channel = CHANNEL_3;
+    constexpr Channel channel = Channel_3;
     constexpr uint8_t track = 5;
     MCU::Bankable::VPotRingLEDs<2> vpot{
         bank, {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, track, channel};

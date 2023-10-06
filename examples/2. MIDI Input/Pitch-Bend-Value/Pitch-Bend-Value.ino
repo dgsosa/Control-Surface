@@ -1,7 +1,7 @@
 /**
  * This example demonstrates how to listen for incoming  MIDI Pitch Bend events.
  * 
- * @boards  AVR, AVR USB, Nano Every, Due, Nano 33 IoT, Nano 33 BLE, Teensy 3.x, ESP32
+ * @boards  AVR, AVR USB, Nano Every, Due, Nano 33 IoT, Nano 33 BLE, UNO R4, Pi Pico, Teensy 3.x, ESP32, ESP8266
  * 
  * Connections
  * -----------
@@ -28,7 +28,7 @@
 USBMIDI_Interface midi;
 
 // Instantiate an object that listens for MIDI Pitch Bend messages on channel 1.
-PBValue pb {CHANNEL_1};
+PBValue pb {Channel_1};
 
 void setup() {
   Control_Surface.begin();

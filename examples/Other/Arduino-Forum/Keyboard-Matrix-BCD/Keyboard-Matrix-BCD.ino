@@ -3,7 +3,7 @@
  * a BD to decimal decoder.  
  * https://forum.arduino.cc/index.php?topic=651047
  * 
- * @boards  AVR, AVR USB, Nano Every, Due, Nano 33 IoT, Nano 33 BLE, Teensy 3.x, ESP32
+ * @boards  AVR, AVR USB, Nano Every, Due, Nano 33 IoT, Nano 33 BLE, UNO R4, Pi Pico, Teensy 3.x, ESP32, ESP8266
  * 
  * Written by Pieter P, 2019-12-01  
  * https://github.com/tttapa/Control-Surface
@@ -31,7 +31,7 @@ const AddressMatrix<rows, columns> notes {{
   // 8 more rows ...
 }};
 // The MIDI channel to use
-const Channel channel = CHANNEL_1;
+const Channel channel = Channel_1;
 
 // Address pins A, B, C & D of TC4028
 const AH::PinList<4> addressPins {{2, 3, 4, 5}};

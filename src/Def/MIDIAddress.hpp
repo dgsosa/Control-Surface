@@ -29,7 +29,7 @@ class MIDIChannelCable {
     /// @{
 
     constexpr MIDIChannelCable() : addresses{0, 0, 0, 0} {}
-    constexpr MIDIChannelCable(Channel channel, Cable cableNumber = CABLE_1)
+    constexpr MIDIChannelCable(Channel channel, Cable cableNumber = Cable_1)
         : addresses{1, 0, channel.getRaw(), cableNumber.getRaw()} {}
 
     constexpr static MIDIChannelCable invalid() { return {}; }
@@ -45,7 +45,7 @@ class MIDIChannelCable {
     /// Get the channel as an integer [0, 15].
     constexpr uint8_t getRawChannel() const { return addresses.channel; }
 
-    /// Get the cable number [CABLE_1, CABLE_16].
+    /// Get the cable number [Cable_1, Cable_16].
     constexpr Cable getCableNumber() const {
         return Cable(addresses.cableNumber);
     }
@@ -99,6 +99,10 @@ class MIDIChannelCable {
     }
 
     /// @}
+
+  protected:
+    constexpr MIDIChannelCable(RawMIDIAddress addresses)
+        : addresses(addresses) {}
 
   private:
     RawMIDIAddress addresses;
@@ -181,13 +185,13 @@ class MIDIAddress {
      *          Must be a number in the range [0, 127].
      * @param   channel
      *          The MIDI Channel.  
-     *          Use the constants @ref CHANNEL_1 through @ref CHANNEL_16.
+     *          Use the constants @ref Channel_1 through @ref Channel_16.
      * @param   cableNumber 
      *          The MIDI USB cable number.  
-     *          Use the constants @ref CABLE_1 through @ref CABLE_16.
+     *          Use the constants @ref Cable_1 through @ref Cable_16.
      */
-    constexpr MIDIAddress(int address, Channel channel = CHANNEL_1,
-                          Cable cableNumber = CABLE_1)
+    constexpr MIDIAddress(int address, Channel channel = Channel_1,
+                          Cable cableNumber = Cable_1)
         : addresses{
               1,
               (uint8_t)address,
@@ -205,7 +209,7 @@ class MIDIAddress {
      *          Must be a number in the range [0, 127].
      * @param   cableNumber 
      *          The MIDI USB cable number.  
-     *          Use the constants @ref CABLE_1 through @ref CABLE_16.
+     *          Use the constants @ref Cable_1 through @ref Cable_16.
      */
     constexpr MIDIAddress(int address, Cable cableNumber)
         : addresses{
@@ -220,12 +224,12 @@ class MIDIAddress {
      * 
      * @param   channel
      *          The MIDI Channel.  
-     *          Use the constants @ref CHANNEL_1 through @ref CHANNEL_16.
+     *          Use the constants @ref Channel_1 through @ref Channel_16.
      * @param   cableNumber 
      *          The MIDI USB cable number.  
-     *          Use the constants @ref CABLE_1 through @ref CABLE_16.
+     *          Use the constants @ref Cable_1 through @ref Cable_16.
      */
-    constexpr MIDIAddress(Channel channel, Cable cableNumber = CABLE_1)
+    constexpr MIDIAddress(Channel channel, Cable cableNumber = Cable_1)
         : addresses{
               1,
               0,
@@ -272,12 +276,12 @@ class MIDIAddress {
     /// Get the address [0, 127].
     constexpr uint8_t getAddress() const { return addresses.address; }
 
-    /// Get the channel [CHANNEL_1, CHANNEL_16]
+    /// Get the channel [Channel_1, Channel_16]
     constexpr Channel getChannel() const { return Channel{addresses.channel}; }
     /// Get the channel as an integer [0, 15]
     constexpr uint8_t getRawChannel() const { return addresses.channel; }
 
-    /// Get the cable number [CABLE_1, CABLE_16].
+    /// Get the cable number [Cable_1, Cable_16].
     constexpr Cable getCableNumber() const {
         return Cable(addresses.cableNumber);
     }
@@ -285,6 +289,8 @@ class MIDIAddress {
     constexpr uint8_t getRawCableNumber() const {
         return addresses.cableNumber;
     }
+    /// Get the channel and cable number.
+    constexpr MIDIChannelCable getChannelCable() const { return {addresses}; }
 
     /// @}
 

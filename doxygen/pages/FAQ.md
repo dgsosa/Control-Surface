@@ -37,7 +37,7 @@ Here's a basic MIDI output example:
 ```cpp
 USBMIDI_Interface midi; // Instantiate the MIDI over USB interface
 
-const MIDIAddress noteAddress = {MIDI_Notes::C(4), CHANNEL_1};
+const MIDIAddress noteAddress = {MIDI_Notes::C(4), Channel_1};
 const uint8_t velocity = 0x7F;
 
 void setup() {
@@ -205,7 +205,7 @@ it's up to the user to create an adapter between Control Surface and the display
 library by implementing the pure virtual functions of `DisplayInterface`.
 
 As an example, you could have a look at the
-[`DisplayInterfaceSSD1306`](https://github.com/tttapa/Control-Surface/blob/master/src/Display/DisplayInterfaces/DisplayInterfaceSSD1306.hpp),
+[`DisplayInterfaceSSD1306`](https://github.com/tttapa/Control-Surface/blob/main/src/Display/DisplayInterfaces/DisplayInterfaceSSD1306.hpp),
 it should be almost identical for other Adafruit libraries, and writing adapters
 for other types of display libraries.
 
@@ -236,10 +236,21 @@ implementing a custom MIDI element as shown in
 
 If that's not enough, you could try disabling some of the features of the 
 library that you don't need. For example, if you don't need to be able to 
-receive MIDI System Exclusive messages, you can turn on the @ref IGNORE_SYSEX 
-setting in @ref src/Settings/Settings.hpp. If you do need SysEx support but 
-still want to save some memory, you can try decreasing the 
-@ref SYSEX_BUFFER_SIZE.
+receive MIDI System Exclusive messages, you can turn on the @ref IGNORE_SYSEX
+and @ref NO_SYSEX_OUTPUT settings in @ref src/Settings/Settings.hpp.
+If you do need SysEx support but still want to save some memory, you can try
+decreasing the @ref SYSEX_BUFFER_SIZE.
+
+If you don't need support for multiple MIDI interfaces, you can set
+`DISABLE_PIPES` to `1`. This disables support for MIDI pipe routing, and causes
+Control Surface to use the default interface only.
+
+If you're not using the `Control_Surface` instance, you can save memory by
+setting `CS_TRUE_CONTROL_SURFACE_INSTANCE` to `0`. This replaces
+`Control_Surface` by a macro that expands to a function call, rather than
+defining `Control_Surface` as a global variable. This allows the optimizer and
+the linker to optimize out parts of the library more effectively, but may reduce
+the quality of code completion. It does not affect the behavior of the library.
 
 ## Why do I get a compiler error when using the note F? {#faq-midi-note-f}
 

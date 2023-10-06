@@ -8,7 +8,7 @@
 #include <MIDI_Outputs/Abstract/MIDIOutputElement.hpp>
 
 #ifdef ARDUINO
-#include <Submodules/Encoder/Encoder.h>
+#include <Submodules/Encoder/AHEncoder.hpp>
 #else
 #include <Encoder.h> // Mock
 #endif
@@ -84,6 +84,11 @@ class GenericMIDIAbsoluteEncoder : public MIDIOutputElement {
     }
     int16_t getSpeedMultiply() const { return encstate.getSpeedMultiply(); }
 
+    int16_t resetPositionOffset() {
+        auto encval = encoder.read();
+        return encstate.update(encval);
+    }
+
   protected:
     Enc encoder;
     BankAddress address;
@@ -98,11 +103,11 @@ class GenericMIDIAbsoluteEncoder : public MIDIOutputElement {
 
 template <uint8_t NumBanks, class BankAddress, class Sender>
 using MIDIAbsoluteEncoder =
-    GenericMIDIAbsoluteEncoder<Encoder, NumBanks, BankAddress, Sender>;
+    GenericMIDIAbsoluteEncoder<AHEncoder, NumBanks, BankAddress, Sender>;
 
 template <uint8_t NumBanks, class BankAddress, class Sender>
 using BorrowedMIDIAbsoluteEncoder =
-    GenericMIDIAbsoluteEncoder<Encoder &, NumBanks, BankAddress, Sender>;
+    GenericMIDIAbsoluteEncoder<AHEncoder &, NumBanks, BankAddress, Sender>;
 
 } // namespace Bankable
 

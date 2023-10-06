@@ -1,7 +1,8 @@
 #pragma once
 
-#include <AH/Arduino-Wrapper.h> // Print
-#include <AH/STL/cstddef>       // size_t
+#include <AH/Arduino-Wrapper.h>           // Print
+#include <AH/PrintStream/PrintStream.hpp> // operator<<
+#include <AH/STL/cstddef>                 // size_t
 #include <AH/STL/vector>
 #include <AH/Settings/Warnings.hpp>
 #include <Settings/NamespaceSettings.hpp>
@@ -85,12 +86,12 @@ enum class MIDICodeIndexNumber : uint8_t {
 struct MIDIMessage {
     /// Constructor.
     MIDIMessage(uint8_t header, uint8_t data1, uint8_t data2,
-                Cable cable = CABLE_1)
+                Cable cable = Cable_1)
         : header(header), data1(data1), data2(data2), cable(cable) {}
 
     /// Constructor.
     MIDIMessage(MIDIMessageType header, uint8_t data1, uint8_t data2,
-                Cable cable = CABLE_1)
+                Cable cable = Cable_1)
         : header(uint8_t(header)), data1(data1), data2(data2), cable(cable) {}
 
     uint8_t header; ///< MIDI status byte (message type and channel).
@@ -177,7 +178,7 @@ struct ChannelMessage : MIDIMessage {
 
     /// Constructor.
     ChannelMessage(MIDIMessageType type, Channel channel, uint8_t data1,
-                   uint8_t data2 = 0x00, Cable cable = CABLE_1)
+                   uint8_t data2 = 0x00, Cable cable = Cable_1)
         : MIDIMessage(uint8_t(type) | channel.getRaw(), data1, data2, cable) {}
 
     explicit ChannelMessage(const MIDIMessage &msg) : MIDIMessage(msg) {}
@@ -236,7 +237,7 @@ struct SysCommonMessage : MIDIMessage {
 
     /// Constructor.
     SysCommonMessage(MIDIMessageType type, uint8_t data1 = 0x00,
-                     uint8_t data2 = 0x00, Cable cable = CABLE_1)
+                     uint8_t data2 = 0x00, Cable cable = Cable_1)
         : MIDIMessage(type, data1, data2, cable) {}
     /// Constructor.
     SysCommonMessage(MIDIMessageType type, uint8_t data1, Cable cable)
@@ -276,19 +277,19 @@ struct SysCommonMessage : MIDIMessage {
 
 struct SysExMessage {
     /// Constructor.
-    SysExMessage() : data(nullptr), length(0), cable(CABLE_1) {}
+    SysExMessage() : data(nullptr), length(0), cable(Cable_1) {}
 
     /// Constructor.
-    SysExMessage(const uint8_t *data, uint16_t length, Cable cable = CABLE_1)
+    SysExMessage(const uint8_t *data, uint16_t length, Cable cable = Cable_1)
         : data(data), length(length), cable(cable.getRaw()) {}
 
     /// Constructor.
-    SysExMessage(const std::vector<uint8_t> &vec, Cable cable = CABLE_1)
+    SysExMessage(const std::vector<uint8_t> &vec, Cable cable = Cable_1)
         : SysExMessage(vec.data(), vec.size(), cable) {}
 
     /// Constructor.
     template <uint16_t N>
-    SysExMessage(const uint8_t (&array)[N], Cable cable = CABLE_1)
+    SysExMessage(const uint8_t (&array)[N], Cable cable = Cable_1)
         : SysExMessage(array, N, cable) {}
 
     const uint8_t *data;
@@ -325,11 +326,11 @@ struct SysExMessage {
 
 struct RealTimeMessage {
     /// Constructor.
-    RealTimeMessage(uint8_t message, Cable cable = CABLE_1)
+    RealTimeMessage(uint8_t message, Cable cable = Cable_1)
         : message(message), cable(cable.getRaw()) {}
 
     /// Constructor.
-    RealTimeMessage(MIDIMessageType message, Cable cable = CABLE_1)
+    RealTimeMessage(MIDIMessageType message, Cable cable = Cable_1)
         : message(uint8_t(message)), cable(cable.getRaw()) {}
 
     uint8_t message;

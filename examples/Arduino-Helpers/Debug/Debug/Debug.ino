@@ -2,7 +2,7 @@
  * This examples shows how use the debug macros for printing different kinds of
  * debugging information
  * 
- * @boards  AVR, AVR USB, Nano Every, Nano 33 IoT, Nano 33 BLE, Due, Teensy 3.x, ESP8266, ESP32
+ * @boards  AVR, AVR USB, Nano Every, Nano 33 IoT, Nano 33 BLE, UNO R4, Pi Pico, Due, Teensy 3.x, ESP8266, ESP32
  * 
  * Behavior
  * --------
@@ -51,6 +51,7 @@ void loop() {
   DEBUGTIME("This is the result of `DEBUGTIME`");
   int a = 1, b = 2, c = 3;
   DEBUGVAL(a, b, c);
+  (void)a, (void)b, (void)c;
   DEBUGVAL(log10(1000) - 2);
   DEBUGVAL(millis());
   DEBUGVAL(Serial.read());

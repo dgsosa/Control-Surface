@@ -28,8 +28,8 @@ class CCAbsoluteEncoder : public MIDIAbsoluteEncoder<ContinuousCCSender> {
      *          library.
      * @param   address
      *          The MIDI address containing the controller number [0, 119], 
-     *          channel [CHANNEL_1, CHANNEL_16], and optional cable number 
-     *          [CABLE_1, CABLE_16].
+     *          channel [Channel_1, Channel_16], and optional cable number 
+     *          [Cable_1, Cable_16].
      * @param   multiplier
      *          A constant factor to increase the speed of the rotary encoder.
      *          The position will just be multiplied by this factor. 
@@ -42,7 +42,7 @@ class CCAbsoluteEncoder : public MIDIAbsoluteEncoder<ContinuousCCSender> {
      *          speed, increasing the number of pulsesPerStep will result in a 
      *          lower speed.
      */
-    CCAbsoluteEncoder(Encoder &&encoder, MIDIAddress address,
+    CCAbsoluteEncoder(AHEncoder &&encoder, MIDIAddress address,
                       int16_t multiplier = 1, uint8_t pulsesPerStep = 4)
         : MIDIAbsoluteEncoder<ContinuousCCSender>(
               std::move(encoder), address, multiplier, pulsesPerStep, {}) {}

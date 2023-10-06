@@ -54,8 +54,8 @@ class NoteButtonMatrix
      *          button matrix that contains the MIDI Note number of each button.
      *          [0, 127]
      * @param   channelCNs
-     *          The a list containing the MIDI channels [CHANNEL_1, CHANNEL_16] 
-     *          and Cable Numbers [CABLE_1, CABLE_16].
+     *          The a list containing the MIDI channels [Channel_1, Channel_16] 
+     *          and Cable Numbers [Cable_1, Cable_16].
      * @param   velocity
      *          The velocity of the MIDI Note events.
      */

@@ -36,8 +36,8 @@ class CCRotaryEncoder
      *          library.
      * @param   address
      *          The MIDI address containing the controller number [0, 119], 
-     *          channel [CHANNEL_1, CHANNEL_16], and optional cable number 
-     *          [CABLE_1, CABLE_16]1, CABLE_16].
+     *          channel [Channel_1, Channel_16], and optional cable number 
+     *          [Cable_1, Cable_16]1, Cable_16].
      * @param   speedMultiply
      *          A constant factor to increase the speed of the rotary encoder.
      *          The difference in position will just be multiplied by this 
@@ -51,7 +51,7 @@ class CCRotaryEncoder
      *          speed, increasing the number of pulsesPerStep will result in a 
      *          lower speed.
      */
-    CCRotaryEncoder(OutputBankConfig<> config, Encoder &&encoder,
+    CCRotaryEncoder(OutputBankConfig<> config, AHEncoder &&encoder,
                     MIDIAddress address, int16_t speedMultiply = 1,
                     uint8_t pulsesPerStep = 4)
         : MIDIRotaryEncoder<SingleAddress, RelativeCCSender>(

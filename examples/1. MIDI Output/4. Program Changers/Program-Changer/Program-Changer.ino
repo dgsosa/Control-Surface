@@ -1,7 +1,7 @@
 /** 
  * This is an example that demonstrates the use of MIDI Program Changers.
  *
- * @boards  AVR, AVR USB, Nano Every, Due, Nano 33 IoT, Nano 33 BLE, Teensy 3.x, ESP32
+ * @boards  AVR, AVR USB, Nano Every, Due, Nano 33 IoT, Nano 33 BLE, UNO R4, Pi Pico, Teensy 3.x, ESP32, ESP8266
  * 
  * Connections
  * -----------
@@ -38,7 +38,7 @@ ProgramChanger<3> programChanger {
     MIDI_PC::Rock_Organ,
     MIDI_PC::Electric_Bass_Pick,
   },
-  CHANNEL_1, // MIDI channel to use
+  Channel_1, // MIDI channel to use
 };
 
 // Instantiate a selector that reads three buttons and controls the program

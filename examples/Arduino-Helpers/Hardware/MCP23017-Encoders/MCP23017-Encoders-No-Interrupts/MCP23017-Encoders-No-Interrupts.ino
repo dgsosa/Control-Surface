@@ -2,7 +2,7 @@
  * This example demonstrates the use of MCP23017 I²C port expanders with rotary
  * encoders.
  * 
- * @boards  AVR, AVR USB, Nano Every, Nano 33 IoT, Nano 33 BLE, Due, Teensy 3.x, ESP8266, ESP32
+ * @boards  AVR, AVR USB, Nano Every, Nano 33 IoT, Nano 33 BLE, UNO R4, Pi Pico, Due, Teensy 3.x, ESP8266, ESP32
  * 
  * Connections
  * -----------
@@ -47,12 +47,12 @@
  * https://github.com/tttapa/Arduino-Helpers
  */
 
+#include <Wire.h>
+
 #include <Arduino_Helpers.h>
 
 #include <AH/Hardware/MCP23017Encoders.hpp>
 #include <AH/PrintStream/PrintStream.hpp>
-
-#include <Wire.h>
 
 using WireType = decltype(Wire);     // The type of I²C driver to use
 using EncoderPositionType = int32_t; // The type for saving encoder positions

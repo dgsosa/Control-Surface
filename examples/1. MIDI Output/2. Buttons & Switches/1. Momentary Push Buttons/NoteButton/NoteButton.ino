@@ -3,7 +3,7 @@
  * used for triggering samples, mute/solo/rec buttons, play/pause/stop buttons, 
  * etc. It can control almost any push button control in your DAW software.
  *
- * @boards  AVR, AVR USB, Nano Every, Due, Nano 33 IoT, Nano 33 BLE, Teensy 3.x, ESP32
+ * @boards  AVR, AVR USB, Nano Every, Due, Nano 33 IoT, Nano 33 BLE, UNO R4, Pi Pico, Teensy 3.x, ESP32, ESP8266
  * 
  * Connections
  * -----------
@@ -38,7 +38,7 @@ USBMIDI_Interface midi;
 // Instantiate a NoteButton object
 NoteButton button {
   5,                       // Push button on pin 5
-  {MIDI_Notes::C(4), CHANNEL_1}, // Note C4 on MIDI channel 1
+  {MIDI_Notes::C(4), Channel_1}, // Note C4 on MIDI channel 1
 };
 
 void setup() {

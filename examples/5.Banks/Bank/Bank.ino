@@ -1,7 +1,7 @@
 /** 
  * This is an example that demonstrates the use of Banks.
  *
- * @boards  AVR, AVR USB, Due, Nano 33 IoT, Nano 33 BLE, Teensy 3.x
+ * @boards  AVR, AVR USB, Due, Nano 33 IoT, Nano 33 BLE, UNO R4, Pi Pico, Teensy 3.x
  * 
  * Banks allow you to use a single control for many different actions. 
  * By changing the bank setting, you can change the address of a MIDI Element.
@@ -105,12 +105,12 @@ IncrementDecrementSelector<4> selector {
 Bankable::CCPotentiometer potentiometer1 {
   {bank, BankType::CHANGE_CHANNEL},     // bank configuration
   A0,                                   // analog pin
-  {MIDI_CC::Channel_Volume, CHANNEL_1}, // address
+  {MIDI_CC::Channel_Volume, Channel_1}, // address
 };
 Bankable::CCPotentiometer potentiometer2 {
   {bank, BankType::CHANGE_CHANNEL},     // bank configuration
   A1,                                   // analog pin
-  {MIDI_CC::Channel_Volume, CHANNEL_2}, // address
+  {MIDI_CC::Channel_Volume, Channel_2}, // address
 };
 
 // The addresses specified here are the addresses for the first Bank.

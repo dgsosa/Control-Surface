@@ -3,6 +3,27 @@
 
 USING_AH_NAMESPACE;
 
+template <class T, size_t N>
+std::ostream &operator<<(std::ostream &os, const AH::Array<T, N> &a) {
+    if (N < 1)
+        return os << "{}";
+    os << '{';
+    for (size_t i = 0; i < N - 1; ++i)
+        os << a[i] << ", ";
+    return os << a[N - 1] << '}';
+}
+
+template <class T, size_t N, bool Reverse, bool Const>
+std::ostream &operator<<(std::ostream &os,
+                         const AH::ArraySlice<T, N, Reverse, Const> &a) {
+    if (N < 1)
+        return os << "{}";
+    os << '{';
+    for (size_t i = 0; i < N - 1; ++i)
+        os << a[i] << ", ";
+    return os << a[N - 1] << '}';
+}
+
 TEST(Array, initializeAndRetrieve) {
     Array<int, 6> arr = {0, 1, 2, 3, 4, 5};
     for (int i = 0; i < 6; i++)
@@ -58,6 +79,24 @@ TEST(Array, sliceEquality) {
     auto b = ba.slice();
     Array<int, 5> ca = {1, 2, 3, 4, 6};
     auto c = ca.slice();
+    EXPECT_EQ(a, a);
+    EXPECT_TRUE(a == a);
+    EXPECT_FALSE(a != a);
+    EXPECT_EQ(a, b);
+    EXPECT_TRUE(a == b);
+    EXPECT_FALSE(a != b);
+    EXPECT_NE(a, c);
+    EXPECT_FALSE(a == c);
+    EXPECT_TRUE(a != c);
+}
+
+TEST(Array, csliceEquality) {
+    Array<int, 5> aa = {1, 2, 3, 4, 5};
+    auto a = aa.cslice();
+    Array<int, 5> ba = {1, 2, 3, 4, 5};
+    auto b = ba.cslice();
+    Array<int, 5> ca = {1, 2, 3, 4, 6};
+    auto c = ca.cslice();
     EXPECT_EQ(a, a);
     EXPECT_TRUE(a == a);
     EXPECT_FALSE(a != a);
@@ -234,6 +273,13 @@ TEST(Array, sliceToArray) {
     EXPECT_EQ(b, c);
 }
 
+TEST(Array, csliceToArray) {
+    Array<int, 5> a = {2, 4, 6, 8, 10};
+    Array<int, 3> b = a.cslice<1, 3>().asArray();
+    Array<int, 3> c = {4, 6, 8};
+    EXPECT_EQ(b, c);
+}
+
 // -------------------------------------------------------------------------- //
 
 TEST(Array2D, initialize) {
@@ -266,12 +312,16 @@ TEST(generateArray, simpleNoType) {
     EXPECT_EQ(x, y);
 }
 
+struct S {
+    int i;
+    float f;
+    bool operator!=(S o) const { return this->i != o.i || this->f != o.f; }
+    friend std::ostream &operator<<(std::ostream &os, S s) {
+        return os << "S{" << s.i << ", " << s.f << "}";
+    }
+};
+
 TEST(fillArray, simple) {
-    struct S {
-        int i;
-        float f;
-        bool operator!=(S o) const { return this->i != o.i || this->f != o.f; }
-    };
     auto x = fillArray<S, 4>(2, 3.14f);
     Array<S, 4> y = {{{2, 3.14f}, {2, 3.14f}, {2, 3.14f}, {2, 3.14f}}};
     EXPECT_EQ(x, y);
@@ -280,7 +330,7 @@ TEST(fillArray, simple) {
 TEST(Array, apply) {
     Array<int, 5> a = {-1, 2, -3, 4, 0};
     Array<int, 5> b = {1, -2, 3, -4, 0};
-    auto c = apply(a, std::negate<>());
+    auto c = AH::apply(a, std::negate<>());
     EXPECT_EQ(c, b);
 }
 

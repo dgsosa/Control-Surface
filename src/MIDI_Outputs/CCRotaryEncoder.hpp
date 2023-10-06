@@ -28,8 +28,8 @@ class CCRotaryEncoder : public MIDIRotaryEncoder<RelativeCCSender> {
      *          library.
      * @param   address
      *          The MIDI address containing the controller number [0, 119], 
-     *          channel [CHANNEL_1, CHANNEL_16], and optional cable number 
-     *          [CABLE_1, CABLE_16].
+     *          channel [Channel_1, Channel_16], and optional cable number 
+     *          [Cable_1, Cable_16].
      * @param   speedMultiply
      *          A constant factor to increase the speed of the rotary encoder.
      *          The difference in position will just be multiplied by this 
@@ -43,7 +43,7 @@ class CCRotaryEncoder : public MIDIRotaryEncoder<RelativeCCSender> {
      *          speed, increasing the number of pulsesPerStep will result in a 
      *          lower speed.
      */
-    CCRotaryEncoder(Encoder &&encoder, MIDIAddress address,
+    CCRotaryEncoder(AHEncoder &&encoder, MIDIAddress address,
                     int16_t speedMultiply = 1, uint8_t pulsesPerStep = 4)
         : MIDIRotaryEncoder<RelativeCCSender>(
               std::move(encoder), address, speedMultiply, pulsesPerStep, {}) {}
@@ -71,7 +71,7 @@ class BorrowedCCRotaryEncoder
      *          out-live this instance.
      * @param   address
      *          The MIDI address containing the controller number [0, 119], 
-     *          channel [CHANNEL_1, CHANNEL_16], and optional cable number 
+     *          channel [Channel_1, Channel_16], and optional cable number 
      *          [0, 15].
      * @param   speedMultiply
      *          A constant factor to increase the speed of the rotary encoder.
@@ -86,7 +86,7 @@ class BorrowedCCRotaryEncoder
      *          speed, increasing the number of pulsesPerStep will result in a 
      *          lower speed.
      */
-    BorrowedCCRotaryEncoder(Encoder &encoder, MIDIAddress address,
+    BorrowedCCRotaryEncoder(AHEncoder &encoder, MIDIAddress address,
                             int16_t speedMultiply = 1, uint8_t pulsesPerStep = 4)
         : BorrowedMIDIRotaryEncoder<RelativeCCSender>(
               encoder, address, speedMultiply, pulsesPerStep, {}) {}

@@ -8,7 +8,7 @@
 #include <MIDI_Outputs/Abstract/MIDIOutputElement.hpp>
 
 #ifdef ARDUINO
-#include <Submodules/Encoder/Encoder.h>
+#include <Submodules/Encoder/AHEncoder.hpp>
 #else
 #include <Encoder.h> // Mock
 #endif
@@ -67,6 +67,16 @@ class GenericMIDIAbsoluteEncoder : public MIDIOutputElement {
     }
     int16_t getSpeedMultiply() const { return encstate.getSpeedMultiply(); }
 
+    /// Get the MIDI address.
+    MIDIAddress getAddress() const { return this->address; }
+    /// Set the MIDI address.
+    void setAddress(MIDIAddress address) { this->address = address; }
+
+    int16_t resetPositionOffset() {
+        auto encval = encoder.read();
+        return encstate.update(encval);
+    }
+
   private:
     Enc encoder;
     MIDIAddress address;
@@ -80,11 +90,11 @@ class GenericMIDIAbsoluteEncoder : public MIDIOutputElement {
 };
 
 template <class Sender>
-using MIDIAbsoluteEncoder = GenericMIDIAbsoluteEncoder<Encoder, Sender>;
+using MIDIAbsoluteEncoder = GenericMIDIAbsoluteEncoder<AHEncoder, Sender>;
 
 template <class Sender>
 using BorrowedMIDIAbsoluteEncoder =
-    GenericMIDIAbsoluteEncoder<Encoder &, Sender>;
+    GenericMIDIAbsoluteEncoder<AHEncoder &, Sender>;
 
 END_CS_NAMESPACE
 

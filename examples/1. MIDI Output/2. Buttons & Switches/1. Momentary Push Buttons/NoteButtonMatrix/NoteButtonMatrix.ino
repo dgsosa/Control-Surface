@@ -1,7 +1,7 @@
 /**
  * This examples shows how to use a button matrix to read many switches.
  * 
- * @boards  AVR, AVR USB, Nano Every, Due, Nano 33 IoT, Nano 33 BLE, Teensy 3.x, ESP32
+ * @boards  AVR, AVR USB, Nano Every, Due, Nano 33 IoT, Nano 33 BLE, UNO R4, Pi Pico, Teensy 3.x, ESP32, ESP8266
  * 
  * Connections
  * -----------
@@ -47,7 +47,7 @@ NoteButtonMatrix<4, 3> buttonmatrix {
   {2, 3, 4, 5}, // row pins
   {6, 7, 8},    // column pins
   addresses,    // address matrix
-  CHANNEL_1,    // channel and cable number
+  Channel_1,    // channel and cable number
 };
 
 void setup() {
